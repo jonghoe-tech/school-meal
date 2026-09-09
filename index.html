@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f0e8" />
+    <title>오늘의 급식 | 여수고등학교</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="오늘의 급식 홈">
+          <span class="brand-mark">밥</span>
+          <span>오늘의 급식</span>
+        </a>
+        <div class="school-switcher">
+          <span class="status-dot"></span>
+          <span>여수고등학교</span>
+          <span class="school-location">전남광주통합특별시교육청</span>
+        </div>
+        <button class="icon-button" aria-label="설정" title="설정">⚙</button>
+      </header>
+
+      <main id="top">
+        <section class="hero-section">
+          <div>
+            <p class="eyebrow">WEDNESDAY · 09 SEPTEMBER 2026</p>
+            <h1>오늘 뭐 먹지<span class="accent">?</span></h1>
+            <p class="hero-copy">이번 주 식단을 한눈에 확인하고<br />맛있는 점심을 미리 골라보세요.</p>
+          </div>
+          <div class="week-strip" aria-label="주간 식단 날짜 선택">
+            <button class="day" data-date="2026-09-07"><span>월</span><strong>07</strong></button>
+            <button class="day" data-date="2026-09-08"><span>화</span><strong>08</strong></button>
+            <button class="day selected" data-date="2026-09-09"><span>수</span><strong>09</strong><i>오늘</i></button>
+            <button class="day" data-date="2026-09-10"><span>목</span><strong>10</strong></button>
+            <button class="day" data-date="2026-09-11"><span>금</span><strong>11</strong></button>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="main-column">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">TODAY'S MENU</p>
+                <h2 id="selected-date">9월 9일 수요일</h2>
+              </div>
+              <div class="meal-tabs" role="tablist" aria-label="식사 유형">
+                <button class="tab active" data-meal="all">전체 <span>3</span></button>
+                <button class="tab" data-meal="중식">중식</button>
+                <button class="tab" data-meal="석식">석식</button>
+              </div>
+            </div>
+
+            <div id="meal-list" class="meal-list"></div>
+          </div>
+
+          <aside class="side-column">
+            <section class="nutrition-panel">
+              <div class="panel-title"><span>오늘의 영양</span><span class="tiny-label">중식 기준</span></div>
+              <div class="calorie-ring"><strong>734</strong><span>kcal</span></div>
+              <div class="nutrition-bars">
+                <div class="nutrition-row"><span>탄수화물</span><strong>96g</strong><div class="bar"><i style="width: 82%"></i></div></div>
+                <div class="nutrition-row"><span>단백질</span><strong>31g</strong><div class="bar"><i style="width: 64%"></i></div></div>
+                <div class="nutrition-row"><span>지방</span><strong>22g</strong><div class="bar"><i style="width: 42%"></i></div></div>
+              </div>
+            </section>
+            <section class="notice-panel">
+              <div class="notice-icon">!</div>
+              <div><strong>알레르기 정보</strong><p>메뉴명 아래 숫자로 표시돼요.<br />알레르기가 있다면 꼭 확인하세요.</p></div>
+            </section>
+          </aside>
+        </section>
+      </main>
+
+      <footer><span>NEIS OPEN API 연결 준비 중</span><span>마지막 업데이트 · 오늘 오전 8:10</span></footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
