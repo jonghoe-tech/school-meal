@@ -4,7 +4,7 @@ const path = require("node:path");
 const { URL } = require("node:url");
 
 const root = __dirname;
-const config = { ...loadEnv(path.join(root, ".env")), ...process.env };
+const config = { ...process.env, ...loadEnv(path.join(root, ".env")) };
 const port = Number(config.PORT || 3000);
 
 function loadEnv(filePath) {
