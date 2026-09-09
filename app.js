@@ -6,6 +6,13 @@ const meals = [
 
 const mealList = document.querySelector("#meal-list");
 const dateTitle = document.querySelector("#selected-date");
+const nutritionCalories = document.querySelector("#nutrition-calories");
+const nutritionMealType = document.querySelector("#nutrition-meal-type");
+const nutritionFields = {
+  탄수화물: [document.querySelector("#nutrition-carbs"), document.querySelector("#nutrition-carbs-bar")],
+  단백질: [document.querySelector("#nutrition-protein"), document.querySelector("#nutrition-protein-bar")],
+  지방: [document.querySelector("#nutrition-fat"), document.querySelector("#nutrition-fat-bar")],
+};
 let selectedDate = "2026-09-09";
 let selectedMeal = "all";
 
@@ -34,12 +41,26 @@ function formatDate(dateString) {
 function renderMeals() {
   const visibleMeals = meals.filter((meal) => meal.date === selectedDate && (selectedMeal === "all" || meal.type === selectedMeal));
   dateTitle.textContent = formatDate(selectedDate);
+  renderNutrition();
   mealList.innerHTML = visibleMeals.length ? visibleMeals.map((meal) => `
     <article class="meal-card">
       <div class="meal-summary"><div class="meal-type">${meal.type}</div><div class="meal-time">${meal.time}</div><div class="dinner-note">오늘의 급식은 맛있나연</div></div>
       <div class="menu-section"><div class="card-label">메뉴</div><div class="menu-title">${meal.title}</div><div class="menu-items">${meal.items.map((item) => `<span>${item}</span>`).join("")}</div></div>
       <div class="food-info"><div class="card-label">식품정보</div><div class="food-info-row"><span>열량</span><strong>${meal.kcal}</strong></div><div class="food-info-row"><span>원산지</span><strong>${meal.origin}</strong></div></div>
     </article>`).join("") : `<div class="meal-card"><div class="meal-type">안내</div><div><div class="menu-title">등록된 식단이 없습니다</div><div class="menu-items"><span>다른 날짜를 선택해 보세요.</span></div></div></div>`;
+}
+
+function renderNutrition() {
+  const lunch = meals.find((meal) => meal.date === selectedDate && meal.type === "중식");
+  const nutrition = lunch?.nutrition || {};
+  nutritionMealType.textContent = lunch ? "중식 기준" : "중식 정보 없음";
+  nutritionCalories.textContent = lunch?.kcal?.replace(/[^0-9.]/g, "") || "-";
+  for (const [label, [valueElement, barElement]] of Object.entries(nutritionFields)) {
+    const value = nutrition[label] || "정보 없음";
+    valueElement.textContent = value;
+    const number = Number.parseFloat(value);
+    barElement.style.width = Number.isFinite(number) ? `${Math.min(number, 100)}%` : "0%";
+  }
 }
 
 document.querySelectorAll(".day").forEach((button) => button.addEventListener("click", () => {

@@ -29,8 +29,18 @@ function normalizeMeals(payload) {
     title: `${row.MMEAL_SC_NM} 식단`,
     items: (row.DDISH_NM || "").split(/<br\s*\/?>|\r?\n/).map((item) => item.trim()).filter(Boolean),
     kcal: row.CAL_INFO || "정보 없음",
+    nutrition: parseNutrition(row.NTR_INFO),
     origin: (row.ORPLC_INFO || "정보 없음").replace(/<br\s*\/?>/g, ", "),
   }));
+}
+
+function parseNutrition(value = "") {
+  const nutrition = {};
+  for (const label of ["탄수화물", "단백질", "지방"]) {
+    const match = value.match(new RegExp(`${label}(?:\\([^)]*\\))?\\s*:\\s*([^<\\r\\n]+)`));
+    nutrition[label] = match ? match[1].trim() : "정보 없음";
+  }
+  return nutrition;
 }
 
 function getMealTime(mealType) {
